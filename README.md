@@ -9,4 +9,7 @@
 
 
 ### Serverless Framework Project Templates
-- [serverless-groovy-scripts](templates/serverless-groovy-scripts)
+- [groovy-scripts](templates/groovy-scripts)
+- [groovy-spark-monolith](templates/groovy-spark-monolith)
+- [java-spark-monolith](templates/java-spark-monolith)
+- [kotlin-spark-monolith](templates/kotlin-spark-monolith)
