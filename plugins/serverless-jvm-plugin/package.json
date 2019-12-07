@@ -3,17 +3,10 @@
   "version": "0.0.6",
   "description": "JVM Plugin for the Serverless Framework",
   "main": "lib/index.js",
-  "bin": {
-    "lambda-local": "lib/cli.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bytekast/serverless-toolkit.git"
   },
-  "files": [
-    "lib/**",
-    "build/libs/*-all.jar"
-  ],
   "keywords": [
     "jvm",
     "java",
