@@ -1,0 +1,19 @@
+service: kotlin-spark-monolith
+
+provider:
+  name: aws
+  runtime: java8
+  memorySize: 1536
+  profile: bytekast
+
+package:
+  artifact: ${file(build/build.json):distribution}
+
+functions:
+  hello:
+    handler: StreamLambdaHandler::handleRequest
+    events:
+    - http:
+        path: /{proxy+}
+        method: any
+        cors: true

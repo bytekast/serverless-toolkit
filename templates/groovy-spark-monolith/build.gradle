@@ -1,0 +1,44 @@
+plugins {
+  id 'application'
+  id 'idea'
+  id 'groovy'
+  id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+
+dependencies {
+  compile 'org.codehaus.groovy:groovy-all:2.5.8'
+  compile 'com.amazonaws.serverless:aws-serverless-java-container-spark:1.4'
+  compile 'com.sparkjava:spark-core:2.9.1'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+}
+
+configurations {
+  implementation {
+    exclude group: 'org.eclipse.jetty.websocket'
+    exclude group: 'org.eclipse.jetty', module: 'jetty-client'
+    exclude group: 'org.eclipse.jetty', module: 'jetty-webapp'
+    exclude group: 'org.eclipse.jetty', module: 'jetty-xml'
+  }
+}
+
+task(buildJson) {
+  doLast {
+    new File("$buildDir/build.json").newWriter().withWriter { w ->
+      w << groovy.json.JsonOutput.toJson([
+        service     : project.name,
+        distribution: relativePath(shadowJar.archivePath),
+        version     : shadowJar.version])
+    }
+  }
+}
+
+mainClassName = "SparkResources"
+
+shadowJar.finalizedBy(buildJson)
+build.dependsOn shadowJar

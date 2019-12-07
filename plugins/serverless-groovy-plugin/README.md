@@ -27,11 +27,11 @@ region = us-east-1
 
 ## 🛵 Usage
 
-A Serverless Framework template is available here: https://github.com/bytekast/serverless-toolkit/tree/master/templates/serverless-groovy-scripts
+A Serverless Framework template is available here: https://github.com/bytekast/serverless-toolkit/tree/master/templates/groovy-scripts
 
 To use the template, simply run:
 ```
-➜ serverless create --template-url https://github.com/bytekast/serverless-toolkit/tree/master/templates/serverless-groovy-scripts --path my-api
+➜ serverless create --template-url https://github.com/bytekast/serverless-toolkit/tree/master/templates/groovy-scripts --path my-api
 ➜ cd my-api
 ➜ npm install
 ➜ serverless deploy 

@@ -1,4 +1,4 @@
-service: serverless-groovy
+service: groovy-scripts
 
 provider:
   name: aws
