@@ -1,4 +1,4 @@
-# Serverless Groovy Plugin
+# serverless-groovy-scripts
 
 #### Deploy [Groovy](http://groovy-lang.org/) [Lambda](https://aws.amazon.com/lambda/) Functions the EASY way using the [Serverless Framework](https://serverless.com/)
 
