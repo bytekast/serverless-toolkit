@@ -1,0 +1,48 @@
+{
+  "name": "serverless-java-instrument",
+  "version": "0.0.6",
+  "version": "0.0.6",
+  "description": "Serverless Framework Plugin that auto-instruments JVM-based Lambda functions",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bytekast/serverless-toolkit.git"
+  },
+  "keywords": [
+    "serverless",
+    "serverless",
+    "framework",
+    "serverless",
+    "offline",
+    "serverless",
+    "plugin",
+    "serverless",
+    "java",
+    "amazon",
+    "web",
+    "services",
+    "aws",
+    "lambda",
+    "java",
+    "groovy",
+    "kotlin",
+    "scala",
+    "clojure",
+    "logging",
+    "metrics",
+    "insights",
+    "instrumentation"
+  ],
+  "author": "Rowell Belen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bytekast/serverless-toolkit/issues"
+  },
+  "homepage": "https://github.com/bytekast/serverless-toolkit/plugins/serverless-java-instrument#readme"
+}
