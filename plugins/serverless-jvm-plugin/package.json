@@ -1,0 +1,36 @@
+{
+  "name": "serverless-jvm-plugin",
+  "version": "0.0.6",
+  "description": "JVM Plugin for the Serverless Framework",
+  "main": "lib/index.js",
+  "bin": {
+    "lambda-local": "lib/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bytekast/serverless-toolkit.git"
+  },
+  "files": [
+    "lib/**",
+    "build/libs/*-all.jar"
+  ],
+  "keywords": [
+    "jvm",
+    "java",
+    "groovy",
+    "scala",
+    "kotlin",
+    "serverless",
+    "aws",
+    "lambda"
+  ],
+  "author": "Rowell Belen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bytekast/serverless-toolkit/issues"
+  },
+  "homepage": "https://github.com/bytekast/serverless-toolkit/plugins/serverless-jvm-plugin#readme",
+  "dependencies": {
+    "java-invoke-local": "0.0.1"
+  }
+}
