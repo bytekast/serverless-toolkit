@@ -27,7 +27,7 @@
   "author": "Rowell Belen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bytekast/serverless-jvm-plugin/issues"
+    "url": "https://github.com/bytekast/serverless-toolkit/issues"
   },
-  "homepage": "https://github.com/bytekast/serverless-jvm-plugin#readme"
+  "homepage": "https://github.com/bytekast/serverless-toolkit/tree/master/libs/java-invoke-local#readme"
 }
