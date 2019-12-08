@@ -5,7 +5,6 @@ provider:
   runtime: java8
   timeout: 300
   memorySize: 1536
-  profile: bytekast
 
 package:
   artifact: ${file(build/build.json):distribution}
