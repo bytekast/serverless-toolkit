@@ -13,8 +13,9 @@ targetCompatibility = 1.8
 dependencies {
   compile(
     'org.codehaus.groovy:groovy-all:2.5.8',
-    'com.amazonaws:aws-lambda-java-core:1.1.0',
-    'com.amazonaws:aws-lambda-java-log4j:1.0.0'
+    'com.amazonaws:aws-lambda-java-log4j:1.0.0',
+    'com.amazonaws:aws-lambda-java-core:1.2.0',
+    'com.amazonaws:aws-lambda-java-events:2.2.7'
   )
 }
 
