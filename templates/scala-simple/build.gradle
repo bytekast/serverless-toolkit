@@ -10,8 +10,10 @@ repositories {
 
 dependencies {
   compile 'org.scala-lang:scala-library:2.12.6'
-  compile 'com.amazonaws:aws-lambda-java-events:2.2.7'
   compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
+  compile 'com.amazonaws:aws-lambda-java-events:2.2.7'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+  compile 'com.fasterxml.jackson.module:jackson-module-scala_2.13:2.10.1'
 
   testCompile 'junit:junit:4.12'
   testCompile 'org.scalatest:scalatest_2.12:3.0.5'

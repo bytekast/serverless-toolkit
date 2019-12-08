@@ -1,12 +1,26 @@
 package serverless
 
+import com.amazonaws.services.lambda.runtime.events.{APIGatewayV2ProxyRequestEvent, APIGatewayV2ProxyResponseEvent}
 import com.amazonaws.services.lambda.runtime.{Context, RequestHandler}
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 
-import scala.collection.mutable
+object JsonUtil {
+  val mapper = new ObjectMapper() with ScalaObjectMapper
+  mapper.registerModule(DefaultScalaModule)
 
-class Handler extends RequestHandler[mutable.LinkedHashMap[String, Object], Response] {
+  def toJson(value: Any): String = {
+    mapper.writeValueAsString(value)
+  }
+}
 
-  def handleRequest(input: mutable.LinkedHashMap[String, Object], context: Context): Response = {
-    Response("Go Serverless v1.0! Your function executed successfully!", input)
+class Handler extends RequestHandler[APIGatewayV2ProxyRequestEvent, APIGatewayV2ProxyResponseEvent] {
+
+  def handleRequest(input: APIGatewayV2ProxyRequestEvent, context: Context): APIGatewayV2ProxyResponseEvent = {
+    val response = new APIGatewayV2ProxyResponseEvent()
+    response.setStatusCode(200)
+    response.setBody(JsonUtil.toJson(Map("message" -> "Go Serverless v1.0! Your function executed successfully!")))
+    response
   }
 }
