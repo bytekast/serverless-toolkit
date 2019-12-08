@@ -7,10 +7,11 @@ class JmvPlugin {
   constructor(serverless, options) {
     this.serverless = serverless
     this.options = options
-
     this.serverlessPath = `${this.serverless.config.servicePath}/.serverless`
-    this.functions = (this.serverless.service || {}).functions
-    this.serviceArtifact = (this.serverless.service.package || {}).artifact
+    serverless.variables.populateService(serverless.pluginManager.cliOptions).then(() => {
+      this.functions = (serverless.service || {}).functions
+      this.serviceArtifact = (serverless.service.package || {}).artifact
+    })
 
     this.commands = {
       jvm: {
