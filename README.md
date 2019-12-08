@@ -12,6 +12,7 @@
 - [clojure-simple](templates/clojure-simple)
 - [clojurescript-simple](templates/clojurescript-simple)
 - [groovy-scripts](templates/groovy-scripts)
+- [groovy-simple](templates/groovy-simple)
 - [groovy-spark-monolith](templates/groovy-spark-monolith)
 - [java-spark-monolith](templates/java-spark-monolith)
 - [kotlin-spark-monolith](templates/kotlin-spark-monolith)
