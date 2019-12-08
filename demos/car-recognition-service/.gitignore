@@ -1,0 +1,22 @@
+*.class
+.idea/
+.gradle/
+build/
+bin/
+.settings/
+.project
+.classpath
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.iml
+
+# Serverless directories
+.serverless/
+
+!gradle/wrapper/*
+out/
+
+serverless.secrets.yml

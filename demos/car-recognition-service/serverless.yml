@@ -1,0 +1,67 @@
+service: car-recognition-service
+
+provider:
+  name: aws
+  runtime: java8
+  memorySize: 1536
+  timeout: 30
+  environment: ${file(serverless.secrets.yml):${self:provider.stage}}
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${self:custom.profiles.${self:provider.stage}}
+  iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+    - "sqs:*"
+    Resource: arn:aws:sqs:${self:provider.region}:${self:custom.accountId}:${self:provider.stage}-*
+  - Effect: "Allow"
+    Action:
+    - "s3:*"
+    Resource: arn:aws:s3:::*
+
+custom:
+  accountId: ${self:custom.accountIds.${self:provider.stage}}
+  defaultStage: dev
+  profiles: ${file(serverless.secrets.yml):profiles}
+  accountIds: ${file(serverless.secrets.yml):accountIds}
+
+package:
+  artifact: ${file(build/build.json):distribution}
+
+functions:
+
+  detect-image:
+    handler: Functions::detectImage
+
+  send-image:
+    handler: Functions::sendImage
+    events:
+    - http:
+        path: image
+        method: post
+
+  process-images:
+    handler: Functions::processImages
+    events:
+    - sqs: arn:aws:sqs:us-east-1:${self:custom.accountId}:${self:provider.stage}-input-queue
+    reservedConcurrency: 5
+
+  get-results:
+    handler: Functions::getResults
+    events:
+    - http:
+        path: results
+        method: get
+
+resources:
+  Resources:
+
+    InputQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: ${self:provider.stage}-input-queue
+
+    OutputBucket:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        BucketName: ${self:service}-${self:provider.stage}-output-bucket
+

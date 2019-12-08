@@ -1,0 +1,44 @@
+plugins {
+  id 'idea'
+  id 'groovy'
+  id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+configurations.all {
+  resolutionStrategy {
+    cacheChangingModulesFor 0, 'seconds'
+  }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  compile(
+    'org.codehaus.groovy:groovy-all:2.5.8',
+    'com.amazonaws:aws-lambda-java-core:1.2.0',
+    'com.amazonaws:aws-lambda-java-log4j:1.0.0',
+    'com.bytekast:common-aws:0.0.2',
+    'com.algorithmia:algorithmia-client:1.0.16'
+  )
+
+  testCompile(
+    'org.spockframework:spock-core:1.1-groovy-2.4'
+  )
+}
+
+task(buildJson) {
+  doLast {
+    new File("$buildDir/build.json").newWriter().withWriter { w ->
+      w << groovy.json.JsonOutput.toJson([distribution: relativePath(shadowJar.archivePath), version: shadowJar.version])
+    }
+  }
+}
+
+shadowJar.finalizedBy buildJson
+build.dependsOn shadowJar
