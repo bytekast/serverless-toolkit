@@ -10,7 +10,7 @@ class Handler : RequestHandler<APIGatewayV2ProxyRequestEvent, APIGatewayV2ProxyR
 
   private val mapper = jacksonObjectMapper()
 
-  override fun handleRequest(input: APIGatewayV2ProxyRequestEvent, context: Context): APIGatewayV2ProxyResponseEvent {
+  override fun handleRequest(input: APIGatewayV2ProxyRequestEvent?, context: Context): APIGatewayV2ProxyResponseEvent {
 
     val response = APIGatewayV2ProxyResponseEvent()
     response.statusCode = 200

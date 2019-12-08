@@ -1,10 +1,9 @@
 {
-  "name": "serverless-groovy-scripts",
+  "name": "groovy-simple",
   "description": "",
   "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
-    "serverless-groovy": "0.0.4",
     "serverless-jvm-plugin": "0.0.7"
   }
 }

@@ -10,3 +10,6 @@ package:
 functions:
   hello:
     handler: com.serverless.Handler
+
+plugins:
+  - serverless-jvm-plugin

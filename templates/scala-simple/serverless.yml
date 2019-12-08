@@ -15,3 +15,6 @@ functions:
     handler: serverless.Handler
     tags:
       VERSION: ${file(build/build.json):version}
+
+plugins:
+  - serverless-jvm-plugin
