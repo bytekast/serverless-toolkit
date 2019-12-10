@@ -79,6 +79,6 @@ class LocalInvocationTest extends Specification {
 
     then:
     Exception e = thrown()
-    e.message == 'Unable to convert "test" to serverless.jvm.plugin.models.Address'
+    e.message == 'Unable to convert input "test" to serverless.jvm.plugin.models.Address'
   }
 }

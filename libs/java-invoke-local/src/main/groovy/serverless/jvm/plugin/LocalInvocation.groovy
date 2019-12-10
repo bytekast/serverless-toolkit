@@ -31,7 +31,7 @@ class LocalInvocation {
         try {
           new JsonSlurper().parseText(input)
         } catch (e) {
-          throw new Exception("Unable to convert \"${input}\" to ${lambda.parameterType.name}")
+          throw new Exception("Unable to convert input \"${input}\" to ${lambda.parameterType.name}")
         }
         final objectInput = mapper.readValue(input, lambda.parameterType)
         if (lambda.hasContext) {

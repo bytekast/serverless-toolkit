@@ -1,6 +1,6 @@
 package serverless.jvm.plugin
 
-import groovy.json.JsonOutput
+
 import picocli.CommandLine
 
 @CommandLine.Command(name = "java-invoke-local", version = "0.0.1",
@@ -30,31 +30,15 @@ class MainCli implements Runnable {
   boolean serverlessOffline
 
   void run() {
-    final classLoader = LambdaClassLoader.getClassLoader(artifact)
-    final lambda = LambdaFunction.create(handler, classLoader)
-    def result
-    if (input) {
-      result = LocalInvocation.invoke(lambda, input.text, function)
-    } else {
-      result = LocalInvocation.invoke(lambda, data, function)
-    }
-
-    if (jsonOutput) {
-      try {
-        if(serverlessOffline) {
-          println JsonOutput.toJson(['__offline_payload__': result])
-        } else {
-          println JsonOutput.prettyPrint(JsonOutput.toJson(result))
-        }
-      } catch (e) {
-        print result
-      }
-    } else {
-      print result
-    }
+    final request = new InvokeRequest(artifact?.toString(), handler, data, input?.toString(), function, jsonOutput, serverlessOffline)
+    println request.run()
   }
 
   static void main(String[] args) {
-    System.exit(new CommandLine(new MainCli()).execute(args))
+    if ('--server' in args) {
+      LocalServer.main(args)
+    } else {
+      System.exit(new CommandLine(new MainCli()).execute(args))
+    }
   }
 }
