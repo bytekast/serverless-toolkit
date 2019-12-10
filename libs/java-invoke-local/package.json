@@ -1,6 +1,6 @@
 {
   "name": "java-invoke-local",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Invoke JVM Lambda Package Locally",
   "main": "lib/index.js",
   "bin": {

@@ -1,7 +1,7 @@
 'use strict';
 
 const {spawnSync} = require("child_process")
-const jar = `${__dirname}/../build/libs/serverless-jvm-plugin-all.jar`
+const jar = `${__dirname}/../build/libs/java-invoke-local-all.jar`
 
 const invokeJavaLocal = (args) => {
   const version = getJavaVersion()
