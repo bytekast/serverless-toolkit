@@ -3,4 +3,4 @@
 
 const args = process.argv.slice(2)
 const { invokeJavaLocal } = require('./index')
-invokeJavaLocal(args)
+console.log(invokeJavaLocal(args))

@@ -35,7 +35,9 @@ class MainCli implements Runnable {
   }
 
   static void main(String[] args) {
-    if ('--server' in args) {
+    if ('--java-version' in args) {
+      println System.getProperty("java.version")
+    } else if ('--server' in args) {
       LocalServer.main(args)
     } else {
       System.exit(new CommandLine(new MainCli()).execute(args))

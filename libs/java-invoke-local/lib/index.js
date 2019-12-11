@@ -1,20 +1,23 @@
 'use strict';
 
 const {spawnSync} = require("child_process")
-const jar = `${__dirname}/../build/libs/java-invoke-local-all.jar`
+const invokerJar = `${__dirname}/../build/libs/java-invoke-local-all.jar`
 
-const invokeJavaLocal = (args) => {
+const invokeJavaLocal = (args, env) => {
+  const environment = {...process.env, ...env}
   const version = getJavaVersion()
   const vmArgs = []
   if (!version.startsWith('1.8')) {
     vmArgs.push('--illegal-access=deny', '--add-opens', 'java.base/java.lang=ALL-UNNAMED', '--add-opens', 'java.base/java.lang.invoke=ALL-UNNAMED')
   }
-  spawnSync('java', ['-jar', ...vmArgs, jar, ...args], {
+  const childProcess = spawnSync('java', ['-jar', ...vmArgs, invokerJar, ...args], {
     cwd: process.cwd(),
-    env: process.env,
-    stdio: 'inherit',
+    env: environment,
+    stdio: 'pipe',
     encoding: 'utf-8'
   })
+  const result = childProcess.stdout || childProcess.stderr
+  return result.toString()
 }
 
 const getJavaVersion = () => {
