@@ -1,7 +1,11 @@
 package serverless.jvm.plugin
 
-
+import com.amazonaws.services.lambda.runtime.Context
+import com.amazonaws.services.lambda.runtime.RequestHandler
+import groovy.json.JsonOutput
 import picocli.CommandLine
+import serverless.jvm.plugin.api.ApiServer
+import serverless.jvm.plugin.api.Route
 
 @CommandLine.Command(name = "java-invoke-local", version = "0.0.1",
   mixinStandardHelpOptions = true, // add --help and --version options
@@ -39,8 +43,24 @@ class MainCli implements Runnable {
       println System.getProperty("java.version")
     } else if ('--server' in args) {
       LocalServer.main(args)
+    } else if ('--api-server' in args) {
+      ApiServer.start(setupRoutes(args))
     } else {
       System.exit(new CommandLine(new MainCli()).execute(args))
     }
+  }
+
+  // TODO - build from serverless.yml
+  static List<Route> setupRoutes(String[] args) {
+    final helloRoute = new Route()
+    helloRoute.method = 'get'
+    helloRoute.path = '/hello'
+    helloRoute.handler = new RequestHandler<String, String>() {
+      @Override
+      String handleRequest(String input, Context context) {
+        return JsonOutput.toJson([statusCode: 200, body: "hello!"])
+      }
+    }
+    [helloRoute]
   }
 }
