@@ -1,0 +1,19 @@
+service: serverless-java-monolith
+
+provider:
+  name: aws
+  runtime: java8
+  timeout: 30
+  memorySize: 1536
+
+package:
+  artifact: ${file(build/build.json):distribution}
+
+functions:
+  hello:
+    handler: example.StreamLambdaHandler
+    events:
+    - http:
+        path: /{proxy+}
+        method: any
+        cors: true
