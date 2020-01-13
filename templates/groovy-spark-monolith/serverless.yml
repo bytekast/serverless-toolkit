@@ -16,4 +16,4 @@ functions:
         path: /{proxy+}
         method: any
         cors: true
-    provisionedConcurrency: 2
+
