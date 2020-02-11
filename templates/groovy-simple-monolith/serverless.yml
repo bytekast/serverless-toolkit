@@ -1,0 +1,27 @@
+service: groovy-simple-monolith
+
+provider:
+  name: aws
+
+functions:
+  monolith:
+    handler: Handler::handleRequest
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+
+plugins:
+  - serverless-groovy
+
+
+
+
+
+
+
+
+
+
+

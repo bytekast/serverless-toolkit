@@ -1,0 +1,7 @@
+{
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-groovy": "0.0.4"
+  }
+}
