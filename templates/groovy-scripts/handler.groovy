@@ -1,6 +1,6 @@
 @Grab('com.amazonaws:aws-lambda-java-core:1.2.0')
 @Grab('com.amazonaws:aws-lambda-java-events:2.2.7')
-@Grab('org.codehaus.groovy:groovy-json:2.5.8')
+@Grab('org.codehaus.groovy:groovy-json:3.0.0')
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2ProxyRequestEvent
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2ProxyResponseEvent
