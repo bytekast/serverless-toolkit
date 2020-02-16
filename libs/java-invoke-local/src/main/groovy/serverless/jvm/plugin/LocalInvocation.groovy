@@ -1,12 +1,14 @@
 package serverless.jvm.plugin
 
 import com.amazonaws.services.lambda.runtime.*
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 class LocalInvocation {
 
-  static final ObjectMapper mapper = new ObjectMapper()
+  static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
   static invoke(LambdaFunction lambda, String input, String functionName = null) {
 
@@ -28,16 +30,31 @@ class LocalInvocation {
           }
         }
 
+        def event, context
         try {
-          new JsonSlurper().parseText(input)
+          final parsed = new JsonSlurper().parseText(input)
+          if (parsed.event && parsed.context) {
+            event = parsed.event
+            context = parsed.context
+          }
         } catch (e) {
           throw new Exception("Unable to convert input \"${input}\" to ${lambda.parameterType.name}")
         }
-        final objectInput = mapper.readValue(input, lambda.parameterType)
-        if (lambda.hasContext) {
-          return lambda.instance."${lambda.method}"(objectInput, mockContext(lambda.method))
+        if (event && context) {
+          final eventJson = JsonOutput.toJson(event)
+          final eventObject = mapper.readValue(eventJson, lambda.parameterType)
+          if (lambda.hasContext) {
+            return lambda.instance."${lambda.method}"(eventObject, context as Context)
+          } else {
+            return lambda.instance."${lambda.method}"(eventObject)
+          }
         } else {
-          return lambda.instance."${lambda.method}"(objectInput)
+          final objectInput = mapper.readValue(input, lambda.parameterType)
+          if (lambda.hasContext) {
+            return lambda.instance."${lambda.method}"(objectInput, mockContext(lambda.method))
+          } else {
+            return lambda.instance."${lambda.method}"(objectInput)
+          }
         }
       }
     }
