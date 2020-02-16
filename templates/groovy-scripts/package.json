@@ -5,6 +5,6 @@
   "dependencies": {},
   "devDependencies": {
     "serverless-groovy": "0.0.4",
-    "serverless-jvm-plugin": "0.0.7"
+    "serverless-jvm-plugin": "0.0.10"
   }
 }
