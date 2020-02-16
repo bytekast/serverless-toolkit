@@ -62,7 +62,8 @@ class JmvPlugin {
       args.push('--json-output')
     }
 
-    invokeJavaLocal(args)
+    const result = invokeJavaLocal(args)
+    console.log(result)
   }
 }
 
