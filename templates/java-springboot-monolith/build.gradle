@@ -1,0 +1,35 @@
+plugins {
+  id 'application'
+  id 'java'
+  id 'org.springframework.boot' version '2.1.8.RELEASE'
+}
+
+repositories {
+  jcenter()
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+  compile(
+    'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE',
+    'com.amazonaws.serverless:aws-serverless-java-container-springboot2:[1.0,)',
+    'io.symphonia:lambda-logging:1.0.1'
+  )
+}
+
+application {
+  mainClassName = "app.Application"
+}
+
+task buildZip(type: Zip) {
+  from compileJava
+  from processResources
+  into('lib') {
+    from(configurations.compileClasspath) {
+      exclude 'tomcat-embed-*'
+    }
+  }
+}
+
+build.dependsOn buildZip

@@ -1,0 +1,19 @@
+service: java-springboot-monolith
+
+provider:
+  name: aws
+  runtime: java8
+  timeout: 30
+  memorySize: 1536
+
+package:
+  artifact: build/distributions/${self:service}.zip
+
+functions:
+  app:
+    handler: app.StreamLambdaHandler::handleRequest
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
