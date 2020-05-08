@@ -44,7 +44,7 @@ class LocalInvocation {
           final eventJson = JsonOutput.toJson(event)
           final eventObject = mapper.readValue(eventJson, lambda.parameterType)
           if (lambda.hasContext) {
-            return lambda.instance."${lambda.method}"(eventObject, context as Context)
+            return lambda.instance."${lambda.method}"(eventObject, newContext(context))
           } else {
             return lambda.instance."${lambda.method}"(eventObject)
           }
@@ -69,6 +69,65 @@ class LocalInvocation {
       clazz == Double.class ||
       clazz == Long.class ||
       clazz == Float.class
+  }
+
+  private static newContext(context){
+    new Context() {
+      @Override
+      String getAwsRequestId() {
+        return context.awsRequestId
+      }
+
+      @Override
+      String getLogGroupName() {
+        return context.logGroupName
+      }
+
+      @Override
+      String getLogStreamName() {
+        return context.logStreamName
+      }
+
+      @Override
+      String getFunctionName() {
+        return context.functionName
+      }
+
+      @Override
+      String getFunctionVersion() {
+        return context.functionVersion
+      }
+
+      @Override
+      String getInvokedFunctionArn() {
+        return context.invokedFunctionArn
+      }
+
+      @Override
+      CognitoIdentity getIdentity() {
+        return context.identity as CognitoIdentity
+      }
+
+      @Override
+      ClientContext getClientContext() {
+        return context.clientContext as ClientContext
+      }
+
+      @Override
+      int getRemainingTimeInMillis() {
+        return context.remainingTimeInMillis
+      }
+
+      @Override
+      int getMemoryLimitInMB() {
+        return context.memoryLimitInMB
+      }
+
+      @Override
+      LambdaLogger getLogger() {
+        return null
+      }
+    }
   }
 
   private static mockContext(final functionName) {
