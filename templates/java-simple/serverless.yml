@@ -1,0 +1,17 @@
+service: java-simple
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: ${file(build/build.json):distribution}
+
+functions:
+  hello:
+    handler: com.serverless.handler.Hello
+    events:
+      - http:
+          path: /hello
+          method: get
+
