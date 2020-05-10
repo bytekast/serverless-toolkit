@@ -1,4 +1,4 @@
-# Simple Serverless Java Application
+#Serverless Java Application with [Spark](http://sparkjava.com/)
 
 #### Prerequisites
 
@@ -11,6 +11,14 @@ You also need to set up your AWS credentials/profiles in the `~/.aws/credentials
 ### Build
 
 To build the project, run `./gradlew clean build`. 
+
+### Run Locally
+
+```
+./gradlew run
+```
+
+You can access the API at `http://localhost:4567/ping`
 
 ### Deploy
 

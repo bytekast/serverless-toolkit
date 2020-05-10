@@ -1,4 +1,4 @@
-# Simple Serverless Java Application
+#Serverless Java Application with [Spring Boot](https://spring.io/projects/spring-boot)
 
 #### Prerequisites
 
@@ -12,6 +12,14 @@ You also need to set up your AWS credentials/profiles in the `~/.aws/credentials
 
 To build the project, run `./gradlew clean build`. 
 
+### Run Locally
+
+```
+./gradlew run
+```
+
+You can access the API at `http://localhost:8080/greeting`
+
 ### Deploy
 
 To deploy, simply run `sls deploy`.
@@ -19,5 +27,5 @@ To deploy, simply run `sls deploy`.
 To invoke the function, run:
 
 ```
-sls invoke -f echo -d 'hello'
+sls invoke -f echo -d 'app'
 ```

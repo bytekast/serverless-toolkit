@@ -15,6 +15,7 @@
 - [groovy-simple](templates/groovy-simple)
 - [groovy-simple-monolith](templates/groovy-simple-monolith)
 - [groovy-spark-monolith](templates/groovy-spark-monolith)
+- [java-simple](templates/java-simple)
 - [java-spark-monolith](templates/java-spark-monolith)
 - [java-springboot-monolith](templates/java-springboot-monolith)
 - [kotlin-simple](templates/kotlin-simple)

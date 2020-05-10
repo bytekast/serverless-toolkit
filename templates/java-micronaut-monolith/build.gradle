@@ -41,7 +41,7 @@ dependencies {
   runtime "com.amazonaws:aws-lambda-java-log4j2:1.1.0"
 }
 
-mainClassName = "example.Application"
+mainClassName = "serverless.Application"
 
 shadowJar {
   mergeServiceFiles()
