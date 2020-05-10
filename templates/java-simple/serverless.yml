@@ -5,11 +5,11 @@ provider:
   runtime: java8
 
 package:
-  artifact: ${file(build/build.json):distribution}
+  artifact: build/libs/java-simple-all.jar
 
 functions:
   hello:
-    handler: com.serverless.handler.Hello
+    handler: com.serverless.handler.Hello::handleRequest
     events:
       - http:
           path: /hello
