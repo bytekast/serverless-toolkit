@@ -1,5 +1,5 @@
 plugins {
-  id "gradle-clojure.clojure" version "0.4.0"
+  id "gradle-clojure.clojure" version "0.5.0-alpha.1"
   id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 

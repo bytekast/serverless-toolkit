@@ -1,5 +1,5 @@
 plugins {
-  id 'gradle-clojure.clojurescript' version '0.4.0'
+  id 'gradle-clojure.clojurescript' version '0.5.0-alpha.1'
 }
 
 group = 'serverless'
