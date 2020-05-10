@@ -1,4 +1,4 @@
-#Serverless Java Application with [Spring Boot](https://spring.io/projects/spring-boot)
+# Serverless Java Application with [Spring Boot](https://spring.io/projects/spring-boot)
 
 #### Prerequisites
 

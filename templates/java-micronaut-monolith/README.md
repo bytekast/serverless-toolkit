@@ -1,4 +1,4 @@
-#Serverless Java Application with [Micronaut](https://micronaut.io/)
+# Serverless Java Application with [Micronaut](https://micronaut.io/)
 
 #### Prerequisites
 

@@ -1,4 +1,4 @@
-#Serverless Java Application with [Spark](http://sparkjava.com/)
+# Serverless Java Application with [Spark](http://sparkjava.com/)
 
 #### Prerequisites
 
