@@ -21,8 +21,14 @@ To include **NodeJS** dependencies, modify [build.gradle](./build.gradle) and ad
 
 ### Build and Deploy
 
-- To build, run `./gradlew clean build`
+- To build, run `npm i && ./gradlew clean build`
 - To deploy, run `serverless deploy`
+
+To invoke the function, run:
+
+```
+sls invoke -f hello
+```
 
 ### Using the Repl in IntelliJ Cursive IDE
 

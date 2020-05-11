@@ -10,7 +10,7 @@ You also need to set up your AWS credentials/profiles in the `~/.aws/credentials
 
 ### Build
 
-To build the project, run `./gradlew clean build`. 
+To build the project, run `npm i && ./gradlew clean build`. 
 
 ### Run Locally
 
@@ -23,9 +23,3 @@ You can access the API at `http://localhost:8080/ping`
 ### Deploy
 
 To deploy, simply run `sls deploy`.
-
-To invoke the function, run:
-
-```
-sls invoke -f echo -d 'hello'
-```

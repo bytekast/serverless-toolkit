@@ -1,8 +1,8 @@
-# Simple Serverless Java Application
+# Simple Serverless [Clojure](https://clojure.org/) Application
 
 #### Prerequisites
 
-1) Install **Java 8** and [Gradle](https://gradle.org/) - I highly recommend using [SDKMAN](http://sdkman.io/) to install any JVM-related packages.
+1) Install **Java 8**, **Clojure** and [Gradle](https://gradle.org/) - I highly recommend using [SDKMAN](http://sdkman.io/) to install any JVM-related packages.
 2) Install [NodeJS](https://nodejs.org/en/) and the [Serverless Framework](https://serverless.com/framework/docs/getting-started/).
 3) [Amazon Web Services](https://aws.amazon.com/) account.
 
@@ -19,5 +19,5 @@ To deploy, simply run `sls deploy`.
 To invoke the function, run:
 
 ```
-sls invoke -f echo -d 'hello'
+sls invoke -f hello -d '{"message" : "hi!"}'
 ```
