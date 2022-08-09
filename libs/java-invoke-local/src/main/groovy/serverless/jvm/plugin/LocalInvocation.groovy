@@ -11,11 +11,21 @@ class LocalInvocation {
   static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
   static invoke(LambdaFunction lambda, String input, String functionName = null) {
+    def event, context, exception
+    try {
+      final parsed = new JsonSlurper().parseText(input)
+      if (parsed.event && parsed.context) {
+        event = parsed.event
+        context = parsed.context
+      }
+    } catch (e) {
+      exception = e
+    }
 
     if (RequestStreamHandler.isAssignableFrom(lambda.clazz)) {
-      def inputStream = new ByteArrayInputStream(input.getBytes())
+      def inputStream = new ByteArrayInputStream(null != event ? JsonOutput.toJson(event).getBytes() : input.getBytes())
       def outputStream = new ByteArrayOutputStream()
-      lambda.instance."${lambda.method}"(inputStream, outputStream, mockContext(lambda))
+      lambda.instance."${lambda.method}"(inputStream, outputStream, null != context ? newContext(context) : mockContext(lambda))
       return outputStream
     } else {
       if (lambda.parameterType.isPrimitive() || isWrapperType(lambda.parameterType) || lambda.parameterType == String) {
@@ -24,34 +34,42 @@ class LocalInvocation {
 
         if (input == null) {
           if (lambda.hasContext) {
-            return lambda.instance."${lambda.method}"(input, mockContext(lambda.method))
+            if (lambda.hasOutput) {
+              def outputStream = new ByteArrayOutputStream()
+              return lambda.instance."${lambda.method}"(input, outputStream, mockContext(lambda.method))
+            } else {
+              return lambda.instance."${lambda.method}"(input, mockContext(lambda.method))
+            }
           } else {
             return lambda.instance."${lambda.method}"(input)
           }
         }
 
-        def event, context
-        try {
-          final parsed = new JsonSlurper().parseText(input)
-          if (parsed.event && parsed.context) {
-            event = parsed.event
-            context = parsed.context
-          }
-        } catch (e) {
+        if (null != exception) {
           throw new Exception("Unable to convert input \"${input}\" to ${lambda.parameterType.name}")
         }
         if (event && context) {
           final eventJson = JsonOutput.toJson(event)
           final eventObject = mapper.readValue(eventJson, lambda.parameterType)
           if (lambda.hasContext) {
-            return lambda.instance."${lambda.method}"(eventObject, newContext(context))
+            if (lambda.hasOutput) {
+              def outputStream = new ByteArrayOutputStream()
+              return lambda.instance."${lambda.method}"(eventObject, outputStream, newContext(context))
+            } else {
+              return lambda.instance."${lambda.method}"(eventObject, newContext(context))
+            }
           } else {
             return lambda.instance."${lambda.method}"(eventObject)
           }
         } else {
           final objectInput = mapper.readValue(input, lambda.parameterType)
           if (lambda.hasContext) {
-            return lambda.instance."${lambda.method}"(objectInput, mockContext(lambda.method))
+            if (lambda.hasOutput) {
+              def outputStream = new ByteArrayOutputStream()
+              return lambda.instance."${lambda.method}"(objectInput, outputStream, mockContext(lambda.method))
+            } else {
+              return lambda.instance."${lambda.method}"(objectInput, mockContext(lambda.method))
+            }
           } else {
             return lambda.instance."${lambda.method}"(objectInput)
           }

@@ -21,3 +21,8 @@
 - [kotlin-simple](templates/kotlin-simple)
 - [kotlin-spark-monolith](templates/kotlin-spark-monolith)
 - [scala-simple](templates/scala-simple)
+
+### Fork modifications
+
+ - Quarkus request handler execution 
+ - Changes from https://github.com/bytekast/serverless-toolkit/pull/1
