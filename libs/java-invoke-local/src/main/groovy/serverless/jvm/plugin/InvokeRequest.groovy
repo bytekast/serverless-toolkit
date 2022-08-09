@@ -1,6 +1,7 @@
 package serverless.jvm.plugin
 
 import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 import groovy.transform.Memoized
@@ -22,6 +23,7 @@ class InvokeRequest {
     if (!artifactFile.exists()) {
       throw new Exception("Unable to find artifact: ${artifact}")
     }
+    def classLoader = Thread.currentThread().getContextClassLoader();
     final lambda = load(artifactFile.lastModified(), artifactFile, handler)
 
     def result
@@ -31,9 +33,13 @@ class InvokeRequest {
     } else {
       result = LocalInvocation.invoke(lambda, data, function)
     }
+    Thread.currentThread().setContextClassLoader(classLoader);
 
     if (jsonOutput) {
       try {
+        if (null != result && result.getClass().isAssignableFrom(ByteArrayOutputStream.class)) {
+          result = new JsonSlurper().parse(((ByteArrayOutputStream)result).toByteArray())
+        }
         if (serverlessOffline) {
           return JsonOutput.toJson(['__offline_payload__': result])
         } else {
@@ -51,6 +57,7 @@ class InvokeRequest {
   @Memoized
   static LambdaFunction load(long lastModified, File artifact, String handler) {
     final classLoader = LambdaClassLoader.getClassLoader(artifact)
+    Thread.currentThread().setContextClassLoader(classLoader)
     final lambda = LambdaFunction.create(handler, classLoader)
     return lambda
   }
