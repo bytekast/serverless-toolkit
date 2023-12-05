@@ -3,7 +3,7 @@ package serverless.jvm.plugin
 
 import picocli.CommandLine
 
-@CommandLine.Command(name = "java-invoke-local", version = "0.0.5",
+@CommandLine.Command(name = "java-invoke-local", version = "0.0.6",
   mixinStandardHelpOptions = true, // add --help and --version options
   description = "@|bold Invoke JVM Lambda Package|@ @|underline Locally|@")
 class MainCli implements Runnable {
